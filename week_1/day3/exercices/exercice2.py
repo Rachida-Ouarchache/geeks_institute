@@ -28,5 +28,3 @@ for dog in dogs:
         bigger_dog = dog
 
 print(f"The biggest dog is {bigger_dog.name} with a height of {bigger_dog.height} cm")
-
-  
