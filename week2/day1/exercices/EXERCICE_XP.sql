@@ -33,10 +33,10 @@ INSERT INTO customers (firstname, lastname) VALUES
 select * from customers, items;
 
 SELECT * FROM items
-WHERE price > 80;
+WHERE price_item > 80;
 
 SELECT * FROM items
-WHERE price <= 300;
+WHERE price_item <= 300;
 
 SELECT * FROM customers
 WHERE lastname = 'Smith';
