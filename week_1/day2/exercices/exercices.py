@@ -41,7 +41,7 @@ brand ={
    }
 }
    # 2 Change the number of stores
-# brand["number_stores"] = 2
+brand["number_stores"] = 2
 print(brand)
 
    # 3 print a sentence explains who Zaras clients are.
