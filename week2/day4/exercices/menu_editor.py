@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from menu_item import MenuItem  # Fixed typo in filename
+    from menu_item import MenuItem  
     from menu_manager import MenuManager
 except ImportError as e:
     print(f"Error importing modules: {e}")
