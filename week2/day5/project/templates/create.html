@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Add Menu Item{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Add a New Dish</h1>
+
+<form method="post" class="space-y-4 bg-white p-6 shadow rounded-lg">
+  <input type="text" name="name" placeholder="Name" class="w-full border p-2 rounded" required>
+  <textarea name="description" placeholder="Description" class="w-full border p-2 rounded"></textarea>
+  <input type="number" step="0.01" name="price" placeholder="Price (DH)" class="w-full border p-2 rounded" required>
+  <label>Category :</label>
+  <select name="category_id" class="w-full border p-2 rounded">
+    {% for c in categories %}
+    <option value="{{ c[0] }}">{{ c[1] }}</option>
+    {% endfor %}
+  </select>
+  <label>Chef :</label>
+  <select name="chef_id" class="w-full border p-2 rounded"><tr>
+    {% for ch in chefs %}
+    <option value="{{ ch[0] }}">{{ ch[1] }}</option>
+    {% endfor %}
+  </select>
+
+  <button class="bg-indigo-600 text-white px-4 py-2 rounded">Add Item</button>
+</form>
+{% endblock %} 
+

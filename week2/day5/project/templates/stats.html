@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Stats{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Statistics & Advanced Analytics</h1>
+
+<!-- Tableau des plats par catégorie -->
+<h2 class="text-xl font-semibold mt-4 mb-2">Number of Dishes per Category</h2>
+<table class="w-full border-collapse bg-white shadow rounded-lg mb-6">
+  <thead>
+    <tr class="bg-gray-200 text-left">
+      <th class="p-2">Category</th>
+      <th class="p-2">Number of Dishes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in stats %}
+    <tr class="border-b">
+      <td class="p-2">{{ s[0] }}</td>
+      <td class="p-2">{{ s[1] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Advanced Analytics Charts -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+  <!-- Dishes per Chef -->
+  <div class="bg-white shadow p-4 rounded-lg">
+    <h2 class="font-semibold mb-2">Number of Dishes per Chef</h2>
+    <canvas id="dishesPerChef"></canvas>
+  </div>
+
+  <!-- Trend of dishes added per month -->
+  <div class="bg-white shadow p-4 rounded-lg">
+    <h2 class="font-semibold mb-2">Dishes Added per Month (Trend)</h2>
+    <canvas id="dishesTrend"></canvas>
+  </div>
+
+</div>
+
+<!-- Totals -->
+<div class="bg-white shadow p-4 rounded-lg mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <p class="font-semibold">Total number of dishes: <span class="text-indigo-600">{{ total_dishes }}</span></p>
+  <p class="font-semibold">Active chefs: <span class="text-green-600">{{ active_chefs }}</span></p>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Dishes per Chef
+  const ctxChef = document.getElementById('dishesPerChef').getContext('2d');
+  new Chart(ctxChef, {
+    type: 'bar',
+    data: {
+      labels: {{ chef_labels | safe }},
+      datasets: [{
+        label: 'Number of Dishes',
+        data: {{ chef_values | safe }},
+        backgroundColor: 'rgba(99, 102, 241, 0.7)'
+      }]
+    },
+    options: { responsive: true }
+  });
+
+  // Trend per Month
+  const ctxTrend = document.getElementById('dishesTrend').getContext('2d');
+  new Chart(ctxTrend, {
+    type: 'line',
+    data: {
+      labels: {{ trend_labels | safe }},
+      datasets: [{
+        label: 'Dishes Added',
+        data: {{ trend_values | safe }},
+        fill: true,
+        borderColor: 'rgba(16, 185, 129, 1)',
+        backgroundColor: 'rgba(16, 185, 129, 0.2)'
+      }]
+    },
+    options: { responsive: true }
+  });
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Edit Item{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Edit {{ item[1] }}</h1>
+
+<form method="post" class="space-y-4 bg-white p-6 shadow rounded-lg">
+  <input type="text" name="name" value="{{ item[1] }}" class="w-full border p-2 rounded" required>
+  <textarea name="description" class="w-full border p-2 rounded">{{ item[2] }}</textarea>
+  <input type="number" step="0.01" name="price" value="{{ (item[3]/100) }}" class="w-full border p-2 rounded" required>
+
+  <label>Category</label>
+  <select name="category_id" class="w-full border p-2 rounded">
+    {% for c in categories %}
+    <option value="{{ c[0] }}" {% if c[0] == item[4] %}selected{% endif %}>{{ c[1] }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Chef</label>
+  <select name="chef_id" class="w-full border p-2 rounded">
+    {% for ch in chefs %}
+    <option value="{{ ch[0] }}" {% if ch[0] == item[5] %}selected{% endif %}>{{ ch[1] }}</option>
+    {% endfor %}
+  </select>
+
+  <button class="bg-green-600 text-white px-4 py-2 rounded">Save Changes</button>
+</form>
+{% endblock %}
+

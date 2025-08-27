@@ -8,9 +8,9 @@ class MenuManager:
         """Get database connection"""
         try:
             connection = psycopg2.connect(
-                database="restaurant_db",
-                user="postgres",  # Change this to your PostgreSQL username
-                password="root",  # Change this to your PostgreSQL password
+                database="restaurant",
+                user="postgres",  
+                password="rachidadev93",  
                 host="localhost",
                 port="5432"
             )
