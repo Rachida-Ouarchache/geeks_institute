@@ -3,7 +3,6 @@ import psycopg2
 
 app = Flask(__name__)
 
-# --- Configuration de la DB ---
 DB_CONFIG = {
     "host": "localhost",       
     "dbname": "restaurant",     
@@ -12,8 +11,6 @@ DB_CONFIG = {
     "port": "5432"              
 }
 
-
-# --- Connexion à la DB ---
 def get_db():
     if "db" not in g:
         g.db = psycopg2.connect(**DB_CONFIG)
@@ -25,7 +22,6 @@ def close_db(exception):
     if db is not None:
         db.close()
 
-# --- Route Index ---
 @app.route("/")
 def index():
     conn = get_db()
@@ -41,7 +37,6 @@ def index():
     cur.close()
     return render_template("index.html", items=items)
 
-# --- Route Détails ---
 @app.route("/menu/<int:item_id>")
 def details(item_id):
     conn = get_db()
@@ -58,7 +53,6 @@ def details(item_id):
     cur.close()
     return render_template("details.html", item=item)
 
-# --- Route Ajouter un plat ---
 @app.route("/create", methods=["GET", "POST"])
 def create():
     conn = get_db()
@@ -78,7 +72,6 @@ def create():
         conn.commit()
         return redirect(url_for("index"))
 
-    # Charger catégories et chefs pour le formulaire
     cur.execute("SELECT id, name FROM categories ORDER BY name")
     categories = cur.fetchall()
     cur.execute("SELECT id, full_name FROM chefs ORDER BY full_name")
@@ -86,7 +79,6 @@ def create():
     cur.close()
     return render_template("create.html", categories=categories, chefs=chefs)
 
-# --- Route Editer un plat ---
 @app.route("/edit/<int:item_id>", methods=["GET", "POST"])
 def edit(item_id):
     conn = get_db()
@@ -107,11 +99,9 @@ def edit(item_id):
         conn.commit()
         return redirect(url_for("index"))
 
-    # Charger le plat
     cur.execute("SELECT id, name, description, price_cents, category_id, chef_id FROM menu_items WHERE id=%s", (item_id,))
     item = cur.fetchone()
 
-    # Charger catégories et chefs
     cur.execute("SELECT id, name FROM categories ORDER BY name")
     categories = cur.fetchall()
     cur.execute("SELECT id, full_name FROM chefs ORDER BY full_name")
@@ -120,13 +110,11 @@ def edit(item_id):
 
     return render_template("edit.html", item=item, categories=categories, chefs=chefs)
 
-# --- Route Statistiques ---
 @app.route("/stats")
 def stats():
     conn = get_db()
     cur = conn.cursor()
     
-    # Plats par catégorie
     cur.execute("""
         SELECT c.name, COUNT(m.id)
         FROM categories c
