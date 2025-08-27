@@ -10,7 +10,6 @@ DB_PORT = "5432"
 
 API_URL = "https://restcountries.com/v3.1/all?fields=name,capital,flags,subregion,population"
 
-
 def connect_db():
     """Connect to PostgreSQL database."""
     try:
