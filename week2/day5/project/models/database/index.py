@@ -10,7 +10,7 @@ def connect_to_db():
     try:
         conn = connect(
             host=os.getenv("PGHOST"),
-            database=os.getenv("PGDATABASE"),
+            database="neondb"
             user=os.getenv("PGUSER"),
             password=os.getenv("PGPASSWORD"),
             sslmode=os.getenv("PGSSLMODE"),

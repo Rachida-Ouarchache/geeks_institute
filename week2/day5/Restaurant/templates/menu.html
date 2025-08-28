@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Menu{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Menu Items</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for item in items %}
+    <div class="bg-white rounded-lg shadow p-5 hover:shadow-lg transition">
+         <img src="{{ item[5] or 'https://picsum.photos/400/300?random=' ~ item[0] }}" 
+        alt="{{ item[1] }}" 
+        class="w-full h-48 object-cover rounded mb-3">
+
+        <h3 class="text-lg font-semibold mb-2">{{ item[1] }}</h3>
+        <p class="text-gray-600 mb-1">{{ item[2]/100 }} DH</p>
+        <p class="text-gray-500 mb-1"><strong>Category:</strong> {{ item[3] or '—' }}</p>
+        <p class="text-gray-500 mb-3"><strong>Chef:</strong> {{ item[4] or '—' }}</p>
+        <div class="flex justify-between">
+            <a href="{{ url_for('edit', item_id=item[0]) }}" class="bg-green-400 text-white px-3 py-1 rounded hover:bg-green-800 transition flex items-center gap-1">
+                <i class="bi bi-pencil-fill"></i> Edit
+            </a>
+            <form action="{{ url_for('delete', item_id=item[0]) }}" method="post" onsubmit="return confirm('Are you sure?');">
+                <button type="submit" class="bg-red-300 text-white px-3 py-1 rounded hover:bg-red-800 transition flex items-center gap-1">
+                    <i class="bi bi-trash-fill"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

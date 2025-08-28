@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Add Item{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Add New Menu Item</h2>
+
+<form method="POST" class="bg-white p-6 rounded-lg shadow max-w-md mx-auto space-y-4">
+  <label class="block font-semibold">Image URL</label>
+    <input type="text" name="image_url" class="w-full border rounded px-3 py-2" placeholder="https://example.com/image.jpg">
+
+    <label class="block font-semibold">Name</label>
+    <input type="text" name="name" class="w-full border rounded px-3 py-2" required>
+
+    <label class="block font-semibold">Description</label>
+    <textarea name="description" class="w-full border rounded px-3 py-2"></textarea>
+
+    <label class="block font-semibold">Price (DH)</label>
+    <input type="number" step="0.01" name="price" class="w-full border rounded px-3 py-2" required>
+
+    <label class="block font-semibold">Category</label>
+    <select name="category_id" class="w-full border rounded px-3 py-2">
+        <option value="">Select category</option>
+        {% for c in categories %}
+        <option value="{{ c[0] }}">{{ c[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <label class="block font-semibold">Chef</label>
+    <select name="chef_id" class="w-full border rounded px-3 py-2">
+        <option value="">Select chef</option>
+        {% for ch in chefs %}
+        <option value="{{ ch[0] }}">{{ ch[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="bg-red-200 text-white px-4 py-2 rounded hover:bg-green-800 transition">Add Item</button>
+</form>
+{% endblock %}
