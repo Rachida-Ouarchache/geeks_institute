@@ -61,16 +61,16 @@
       console.log(`My ${number}${suffix} chois is ${colors[i]}`);
   }
   // exerice 3
-  //  const prompt = require("prompt-sync")();
+   const prompt = require("prompt-sync")();
 
-  //  let inputNumber = Number(prompt("Enter a number:"));
+   let inputNumber = Number(prompt("Enter a number:"));
 
-  //  while (inputNumber < 10) {
-  // inputNumber = Number(prompt("Please enter another number:"));
-  // }
+   while (inputNumber < 10) {
+  inputNumber = Number(prompt("Please enter another number:"));
+  }
 
-  // console.log("Your number:", inputNumber);
-  // console.log("Type of number is:", typeof inputNumber);
+  console.log("Your number:", inputNumber);
+  console.log("Type of number is:", typeof inputNumber);
 // exercice 4
  const building = {
     numberOfFloors: 4,
@@ -147,7 +147,7 @@ console.log("The secret society name is:", socName);
 const societyName = names
   .map(name => name[0])  
   .sort()                
-  .join("");             
+  .join("");       
 
 console.log(societyName); 
 
