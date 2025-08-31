@@ -31,16 +31,15 @@ let guestList = {
   let sum = 0;
 
   for (let i = 0; i < age.length; i++) {
-    sum += age[i]; // additionne chaque élément au total
+    sum += age[i]; 
   }
 
   console.log("Sum of all ages:", sum);
   // 2
-  let maxAge = age[0]; // On initialise avec le premier élément
-
+  let maxAge = age[0]; 
   for (let i = 1; i < age.length; i++) {
     if (age[i] > maxAge) {
-      maxAge = age[i]; // Si on trouve un élément plus grand, on le remplace
+      maxAge = age[i]; 
     }
   }
 
