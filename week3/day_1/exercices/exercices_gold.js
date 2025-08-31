@@ -39,7 +39,7 @@ let guestList = {
   let maxAge = age[0]; 
   for (let i = 1; i < age.length; i++) {
     if (age[i] > maxAge) {
-      maxAge = age[i]; // Si on trouve un élément plus grand, on le remplace
+      maxAge = age[i]; 
     }
   }
 
