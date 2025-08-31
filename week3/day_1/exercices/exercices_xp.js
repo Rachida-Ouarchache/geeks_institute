@@ -138,7 +138,6 @@ let letters = [];
 for (let i = 0; i < names.length; i++) {
   letters.push(names[i][0]); 
 }
-
 letters.sort();
 
 let socName = letters.join("");
