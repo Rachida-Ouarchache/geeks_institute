@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <article>
+      <h1>Some Facts</h1>
+      <h2>The Chocolate</h2>
+      <h3>History of the chocolate</h3>
+      <p>
+        Chocolate is made from tropical Theobroma cacao tree seeds. Its earliest
+        use dates back to the Olmec civilization in Mesoamerica.
+      </p>
+      <p>
+        After the European discovery of the Americas, chocolate became very
+        popular in the wider world, and its demand exploded.
+      </p>
+      <p>
+        Chocolate has since become a popular food product that millions enjoy
+        every day, thanks to its unique, rich, and sweet taste.
+      </p>
+      <p>But what effect does eating chocolate have on our health?</p>
+    </article>
+
+    <button id="boldBtn">Make Paragraphs Bold</button>
+
+    <script>
+      // 1
+      const heading = document.querySelector("h1");
+      console.log(heading);
+      console.log(heading.textContent);
+      // 2
+      const article = document.querySelector("article");
+
+      article.removeChild(article.lastElementChild);
+      // 3
+      const heading2 = document.querySelector("h2");
+
+      heading2.addEventListener("click", function () {
+        heading2.style.backgroundColor = "red";
+      });
+      console.log(heading2);
+      //  4
+      const heading3 = document.querySelector("h3");
+
+      heading3.addEventListener("click", function () {
+        heading3.style.display = "none";
+      });
+
+      console.log(heading3);
+      // 4
+      const boldButton = document.getElementById("boldBtn");
+
+      boldButton.addEventListener("click", function () {
+        const paragraphs = document.querySelectorAll("article p");
+        paragraphs.forEach((p) => {
+          p.style.fontWeight = "bold";
+        });
+      });
+      console.log(boldButton);
+      // 5
+      const heading1 = document.querySelector("h1");
+
+      heading1.addEventListener("mouseover", function () {
+        const randomSize = Math.floor(Math.random() * 101);
+        heading1.style.fontSize = randomSize + "px";
+      });
+    </script>
+  </body>
+</html>
