@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Select Example</title>
+</head>
+<body>
+  <select id="genres">
+    <option value="rock">Rock</option>
+    <option value="blues">Blues</option>
+  </select>
+
+  <p id="result"></p>
+
+  <script>
+    let select = document.getElementById("genres");
+    let option = new Option("Classic", "classic", true, true); 
+    select.add(option);
+
+    document.getElementById("result").innerHTML = "Selected: " + select.value;
+
+  </script>
+</body>
+</html>
