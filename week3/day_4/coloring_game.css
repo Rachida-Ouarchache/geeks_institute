@@ -1,0 +1,60 @@
+table {
+  width: 250px;
+}
+
+.color-cell {
+  width: 100px;
+  height: 84px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+button {
+  width: 310px;
+  height: 86px;
+  border-radius: 8px;
+  font-size: larger;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: gray;
+}
+
+section.palette {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  padding: 10px;
+  background: white;
+  z-index: 9;
+}
+
+#grid {
+  position: absolute;
+  left: 300px;
+  top: 0px;
+  bottom: 0px;
+  display: grid;
+  grid-template-columns: repeat(13, 17px);
+  grid-auto-rows: 16px;
+  gap: 9px;
+  padding: 5px;
+  background: transparent;
+}
+
+.grid-cell {
+  width: 25px;
+  height: 25px;
+  background: white;
+  border: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.color-cell.active {
+  outline: 4px #333;
+  outline-offset: -3px;
+}
