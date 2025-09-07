@@ -1,28 +1,49 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-        #container {
-          width: 400px;
-          height: 400px;
-          position: relative;
-          background: yellow;
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Animation Example</title>
+  <style>
+    #container {
+      width: 400px;
+      height: 400px;
+      position: relative;
+      background: yellow;
+    }
+    #animate {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      background-color: red;
+      left: 0;  
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <p><button onclick="myMove()">Click Me</button></p>
+  <div id="container">
+    <div id="animate"></div>
+  </div>
+
+  <script>
+    function myMove() {
+      let elem = document.getElementById("animate");
+      let pos = 0; 
+      let containerWidth = document.getElementById("container").offsetWidth;
+      let boxWidth = elem.offsetWidth;
+
+      let id = setInterval(frame, 1);
+
+      function frame() {
+        if (pos >= containerWidth - boxWidth) {
+          clearInterval(id); 
+        } else {
+          pos++;
+          elem.style.left = pos + "px";
         }
-        #animate {
-          width: 50px;
-          height: 50px;
-          position: absolute;
-          background-color: red;
-          top: 0;
-          left:0;
-        }
-        </style>
-    </head>
-    <body>
-        <p><button onclick="myMove()">Click Me</button></p>
-        <div id="container">
-          <div id="animate"></div>
-        </div>
-        <scrip src="exercice_move.js"></scrip>
-    </body>
-    </html>
+      }
+    }
+  </script>
+</body>
+</html>
