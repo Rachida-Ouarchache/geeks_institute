@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Form</title>
+</head>
+<body>
+
+  <form action="" method="GET">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="5" cols="30"></textarea><br><br>
+
+    <input type="submit" value="Send">
+  </form>
+
+</body>
+</html>
+<!-- the data is sent via the URL and visible in the address bar -->
+<!-- exercice 2 -->
+<h2> POST Form</h2>
+  <form action="" method="POST">
+    <label for="name2">Name:</label>
+    <input type="text" id="name2" name="name"><br><br>
+
+    <label for="message2">Message:</label><br>
+    <textarea id="message2" name="message" rows="4" cols="50"></textarea><br><br>
+
+    <input type="submit" value="Send">
+  </form>
+
+  <!-- When submitted, the data will not appear in the URL. You can see it in the Network tab of your browser’s developer tools. -->
+
+  <hr>
+
+<!-- Exercice 3 -->
+  <h2>JSON Mario</h2>
+  <pre id="jsonOutput"></pre>
+
+  <script>
+    const marioGame = {
+      detail: "An amazing game!",
+      characters: {
+        mario: {
+          description: "Small and jumpy. Likes princesses.",
+          height: 10,
+          weight: 3,
+          speed: 12,
+        },
+        bowser: {
+          description: "Big and green, Hates princesses.",
+          height: 16,
+          weight: 6,
+          speed: 4,
+        },
+        princessPeach: {
+          description: "Beautiful princess.",
+          height: 12,
+          weight: 2,
+          speed: 2,
+        }
+      }
+    };
+
+    const marioJSON = JSON.stringify(marioGame);
+    console.log(marioJSON);
+
+    const marioPrettyJSON = JSON.stringify(marioGame, null, 2);
+    document.getElementById('jsonOutput').textContent = marioPrettyJSON;
+
+    debugger;
+  </script>
+
+</body>
+</html>
