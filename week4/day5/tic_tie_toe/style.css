@@ -1,0 +1,83 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f4f4f4;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  background-image: url("https://tse1.mm.bing.net/th/id/OIP.OpWYa9dvTpqhY0A6zsUudgAAAA?r=0&w=375&h=375&rs=1&pid=ImgDetMain&o=7&rm=3");
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  margin: 20px auto;
+  width: max-content;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  cursor: pointer;
+  border: 2px solid #333;
+}
+
+#restartBtn {
+  margin-top: 20px;
+  display: none;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.hard{
+  margin-top: 20px;
+  width: 150px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background-color: rgb(241, 237, 237);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.choice{
+  margin-top: 20px;
+  width: 150px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background-color: rgb(232, 235, 236);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.easy{
+  margin-top: 20px;
+  width: 150px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background-color: rgb(252, 255, 254);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.choice2{
+  margin-top: 20px;
+  margin-left: 300px;
+  width: 150px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  cursor: pointer;
+  background-color: rgb(244, 243, 241);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
