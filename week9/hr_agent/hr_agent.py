@@ -221,86 +221,50 @@ def save_shortlist(name, candidate_indices):
     return True
 
 # --------------------- Email Draft ---------------------
-def draft_email(recipients, job_title, tone="friendly"):
-    names = [f"{c['firstName']} {c['lastName']}" for c in recipients]
-    emails = ", ".join(names)
+def draft_email(recipients, job_title, tone="friendly", closing="Best,\nRecruiter"):
+    if isinstance(recipients, list) and recipients and isinstance(recipients[0], dict):
+        emails = [r["email"] for r in recipients]
+        names = [r.get("firstName","") for r in recipients]
+    else:
+        emails = recipients
+        names = [None]
+    subject = f"{job_title} opportunity — quick chat?"
+    if tone == "formal":
+        intro = "Hello,"
+    else:
+        intro = "Hi,"
+    if names:
+        intro += " " + ", ".join(names)  
 
-    prompt = f"""
-Write a {tone} recruiter outreach email for candidates: {emails}
-for the job: {job_title}.
-Return JSON with keys: subject, text, closing.
+    text = f"""{intro}👋
+
+We noticed your skills and experience and thought you might be perfect for our {job_title} role! 
+
+Are you available for a quick 15-minute chat this week to explore this opportunity? 💡
+
+{closing}
 """
+    return {"subject": subject, "text": text, "to": emails}
 
-    try:
-        client = OpenAI(api_key=OPENAI_API_KEY)
-        response = client.chat.completions.create(
-            model=MODEL,
-            messages=[
-                {"role": "system", "content": "You are an assistant that writes recruiter emails."},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        content = response.choices[0].message.content
-        data = json.loads(content)
-    except Exception as e:
-        print("⚠️ Error generating email, using fallback:", e)
-        data = {
-            "subject": f"Opportunity: {job_title}",
-            "text": f"Hi {emails},\n\nWe’re excited to share an opportunity for a {job_title}. Would you be open to a quick chat?\n\nBest regards,\nRecruiter",
-            "closing": "Best regards"
-        }
-    return data
-
-def html_template(email):
-    subject = email.get('subject')
-    body = email.get('text').replace('\n', '<br>')
-    html = f"""
+def html_template(email_obj):
+    # simple inline CSS
+    subject = email_obj["subject"]
+    text = email_obj["text"].replace("\n", "<br>")
+    html = f"""<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <style>
-      body {{ font-family: Arial, sans-serif; line-height:1.4; }}
-      .card {{ border:1px solid #eee; padding:16px; border-radius:6px; max-width:600px; }}
-      .footer {{ margin-top:12px; font-size:12px; color:#666 }}
-    </style>
+    <meta charset="utf-8"/>
+    <title>{subject}</title>
   </head>
-  <body>
-    <div class="card">
-      <h3>{subject}</h3>
-      <div>{body}</div>
-      <div class="footer">Recruiter • Acme Talent</div>
+  <body style="font-family: Arial, sans-serif; line-height:1.4;">
+    <div style="max-width:600px; padding:16px; border:1px solid #ddd; border-radius:8px;">
+      <h2 style="margin-top:0;">{subject}</h2>
+      <div>{text}</div>
+      <p style="margin-top:20px; color:#555;">This is a preview. Reply to proceed.</p>
     </div>
   </body>
-</html>
-"""
+</html>"""
     return html
-
-def send_email_mailjet(recipients, subject, html_content):
-    if not MAILJET_API_KEY or not MAILJET_SECRET_KEY or not SENDER_EMAIL:
-        print("Mailjet keys not configured.")
-        return False
-
-    client = Client(auth=(MAILJET_API_KEY, MAILJET_SECRET_KEY), version='v3.1')
-    data = {
-        'Messages': [{
-            "From": {"Email": SENDER_EMAIL, "Name": "HR Agent"},
-            "To": [{"Email": email} for email in recipients],
-            "Subject": subject,
-            "HTMLPart": html_content
-        }]
-    }
-    try:
-        result = client.send.create(data=data)
-        if result.status_code == 200:
-            print("Email sent successfully via Mailjet!")
-            return True
-        else:
-            print("Error sending email:", result.json())
-            return False
-    except Exception as e:
-        print("Exception sending email:", e)
-        return False
-
 # --------------------- Analytics ---------------------
 def analytics_summary():
     candidates = load_candidates()
