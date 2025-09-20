@@ -24,15 +24,16 @@ const myPromise = new Promise((resolve) => {
 });
 // exercice 3
   // 1
-myPromise.then(result => console.log(result));
-const promise = Promise.resolve(3);
+const resolvedPromise = Promise.resolve(3);
 
-promise.then(result => console.log(result));
-  // 2
-const promise1 = Promise.reject("Boo!");
+resolvedPromise.then(value => {
+  console.log("Resolved with:", value);
+});
+ // 2
+const rejectedPromise = Promise.reject("Boo!");
 
-promise1
-  .then(result => console.log(result))
-  .catch(error => console.log(error));
+rejectedPromise.catch(error => {
+  console.error("Rejected with:", error); 
+});
 
 
