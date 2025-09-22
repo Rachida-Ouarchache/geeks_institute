@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Giphy API</title>
+</head>
+<body>
+  <h1> Giphy API </h1>
+  <div id="gif-container"></div>
+
+  <script>
+    const API_KEY = "hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My";
+    const gifsContainer = document.getElementById("gif-container");
+
+    async function fetchRandomGif() {
+      try {
+        const response = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const randomIndex = Math.floor(Math.random() * data.data.length);
+        const gif = data.data[randomIndex];
+
+        const gifUrl = gif.images.fixed_height.url;
+
+        const img = document.createElement("img");
+        img.src = gifUrl;
+        img.alt = gif.title;
+        gifsContainer.appendChild(img);
+
+      } catch (error) {
+        console.error("Error fetching GIF:", error);
+        gifsContainer.textContent = "Oops! Could not load GIF.";
+      }
+    }
+
+    fetchRandomGif();
+  </script>
+</body>
+</html>
