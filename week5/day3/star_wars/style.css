@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?cs=srgb&dl=pexels-pixabay-2150.jpg&fm=jpg');
+  color: #ffe81f;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffe81f;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffcc00;
+}
+
+#character {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.hidden {
+  display: none;
+}
+
+#error {
+  color: red;
+  margin-top: 15px;
+}
+h1 {
+  margin-top: 20px;
+  font-size: 50px;     
+}
+.border {
+  border: 2px solid #ffe81f;
+  padding: 20px;
+  margin-left: 520px;
+  border-radius: 10px;
+  width: 450px;
+  height: 230px;
+}
+i {
+  margin-top: 20px;
+}
