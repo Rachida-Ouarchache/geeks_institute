@@ -1,0 +1,96 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+/* Conteneur principal */
+.converter {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+}
+
+/* Titre */
+.converter h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Labels et champs */
+label {
+  display: block;
+  margin: 15px 0 5px;
+  font-weight: bold;
+  color: #444;
+  text-align: left;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+select:focus,
+input:focus {
+  border-color: #4facfe;
+}
+
+/* Boutons */
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#convertBtn {
+  background: #4facfe;
+  color: white;
+}
+
+#convertBtn:hover {
+  background: #3a8edc;
+}
+
+#switchBtn {
+  background: #eee;
+  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
+#switchBtn:hover {
+  background: #ddd;
+}
+
+.switch-icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* Résultat */
+#result {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+}
