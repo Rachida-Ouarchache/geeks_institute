@@ -1,0 +1,13 @@
+{
+  "name": "exercice_3",
+  "version": "1.0.0",
+  "main": "date.js",
+  "type": "module",
+  "scripts": {
+    "start": "node script.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
