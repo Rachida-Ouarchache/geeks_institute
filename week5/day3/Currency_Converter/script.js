@@ -6,6 +6,7 @@ const toCurrency = document.getElementById("toCurrency");
 const result = document.getElementById("result");
 const amountInput = document.getElementById("amount");
 const convertBtn = document.getElementById("convertBtn");
+const switchBtn = document.getElementById("switchBtn");
 
 async function loadCurrencies() {
   try {
@@ -49,8 +50,6 @@ async function convertCurrency() {
 }
 
 convertBtn.addEventListener("click", convertCurrency);
-
-const switchBtn = document.getElementById("switchBtn");
 
 switchBtn.addEventListener("click", () => {
   const temp = fromCurrency.value;

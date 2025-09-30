@@ -29,11 +29,12 @@ const resolvedPromise = Promise.resolve(3);
 resolvedPromise.then(value => {
   console.log("Resolved with:", value);
 });
- // 2
+
 const rejectedPromise = Promise.reject("Boo!");
 
 rejectedPromise.catch(error => {
   console.error("Rejected with:", error); 
 });
+
 
 
