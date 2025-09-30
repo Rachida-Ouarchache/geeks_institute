@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Emoji Guessing Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎮 Emoji Guessing Game</h1>
+    <div id="game">
+      <p id="emoji">Clique sur "Nouvelle Question"</p>
+      <div id="options"></div>
+      <p id="feedback"></p>
+      <p>Score: <span id="score">0</span></p>
+    </div>
+    <button onclick="getQuestion()">Nouvelle Question</button>
+
+    <script>
+      let correctAnswer = "";
+
+      async function getQuestion() {
+        const res = await fetch("/api/question");
+        const data = await res.json();
+
+        document.getElementById("emoji").textContent = data.emoji;
+        correctAnswer = data.correct;
+
+        const optionsDiv = document.getElementById("options");
+        optionsDiv.innerHTML = "";
+        data.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => makeGuess(opt);
+          optionsDiv.appendChild(btn);
+        });
+      }
+
+      async function makeGuess(option) {
+        const res = await fetch("/api/guess", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ guess: option, correct: correctAnswer }),
+        });
+        const data = await res.json();
+
+        document.getElementById("feedback").textContent = data.message;
+        document.getElementById("score").textContent = data.score;
+      }
+    </script>
+  </body>
+</html>
