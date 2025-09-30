@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quiz Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      button {
+        margin: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎮 Quiz Game</h1>
+    <div id="quiz">
+      <p id="question">Clique sur "Commencer" pour lancer le quiz</p>
+      <div id="options"></div>
+      <p id="feedback"></p>
+      <p>Score: <span id="score">0</span></p>
+    </div>
+    <button onclick="startQuiz()">Commencer</button>
+
+    <script>
+      let score = 0;
+      let currentIndex = 0;
+
+      async function startQuiz() {
+        score = 0;
+        currentIndex = 0;
+        document.getElementById("score").textContent = score;
+        document.getElementById("feedback").textContent = "";
+
+        await fetch("/api/reset", { method: "POST" });
+        getQuestion();
+      }
+
+      async function getQuestion() {
+        const res = await fetch("/api/question");
+        const data = await res.json();
+
+        if (data.finished) {
+          document.getElementById("question").textContent =
+            "Quiz terminé ! 🎉 Score final : " + score;
+          document.getElementById("options").innerHTML = "";
+          return;
+        }
+
+        currentIndex = data.index;
+        document.getElementById("question").textContent = data.question;
+
+        const optionsDiv = document.getElementById("options");
+        optionsDiv.innerHTML = "";
+
+        data.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => sendAnswer(opt);
+          optionsDiv.appendChild(btn);
+        });
+      }
+
+      async function sendAnswer(answer) {
+        const res = await fetch("/api/answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ index: currentIndex, answer }),
+        });
+        const data = await res.json();
+
+        if (data.correct) {
+          score++;
+          document.getElementById("feedback").textContent = "✅ Bonne réponse !";
+        } else {
+          document.getElementById("feedback").textContent =
+            "❌ Mauvaise réponse. La bonne était : " + data.correctAnswer;
+        }
+
+        document.getElementById("score").textContent = score;
+        setTimeout(getQuestion, 1000); 
+      }
+    </script>
+  </body>
+</html>
