@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Turn-based Game — Lobby</title>
+  <style>
+    body{font-family: Arial; padding:20px; max-width:900px;margin:auto}
+    .card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:16px}
+    input{padding:8px;margin:6px}
+    button{padding:8px 12px;margin:6px}
+    pre{background:#f6f8fa;padding:8px}
+  </style>
+</head>
+<body>
+  <h1>Turn-based Game — Lobby</h1>
+
+  <div class="card">
+    <h3>Register</h3>
+    <input id="regUser" placeholder="username" />
+    <input id="regPass" placeholder="password" type="password" />
+    <button id="btnReg">Register</button>
+    <div id="regMsg"></div>
+  </div>
+
+  <div class="card">
+    <h3>Login</h3>
+    <input id="loginUser" placeholder="username" />
+    <input id="loginPass" placeholder="password" type="password" />
+    <button id="btnLogin">Login</button>
+    <div id="loginMsg"></div>
+  </div>
+
+  <div class="card">
+    <h3>Games</h3>
+    <div>
+      Logged in as: <span id="me">not logged</span>
+    </div>
+    <button id="btnCreate" disabled>Create Game</button>
+    <button id="btnRefresh">Refresh Games</button>
+    <div id="gamesList"></div>
+  </div>
+
+  <script>
+    let me = null;
+
+    async function request(path, opts) {
+      const res = await fetch(path, opts);
+      try { return await res.json(); } catch(e){ return null; }
+    }
+
+    document.getElementById('btnReg').onclick = async () => {
+      const username = document.getElementById('regUser').value.trim();
+      const password = document.getElementById('regPass').value.trim();
+      if (!username || !password) return alert('enter creds');
+      const r = await request('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username,password})});
+      document.getElementById('regMsg').textContent = r.message || JSON.stringify(r);
+    };
+
+    document.getElementById('btnLogin').onclick = async () => {
+      const username = document.getElementById('loginUser').value.trim();
+      const password = document.getElementById('loginPass').value.trim();
+      if (!username || !password) return alert('enter creds');
+      const r = await request('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username,password})});
+      if (r.userId) {
+        me = { userId: r.userId, username: r.username };
+        document.getElementById('me').textContent = me.username;
+        document.getElementById('btnCreate').disabled = false;
+        document.getElementById('loginMsg').textContent = "logged in";
+      } else {
+        document.getElementById('loginMsg').textContent = r.message || JSON.stringify(r);
+      }
+    };
+
+    document.getElementById('btnCreate').onclick = async () => {
+      if (!me) return alert('login first');
+      const r = await request('/api/games', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: me.userId, username: me.username })});
+      if (r.gameId) {
+        window.location = `/game.html?gameId=${r.gameId}&userId=${me.userId}`;
+      } else {
+        alert(JSON.stringify(r));
+      }
+    };
+
+    async function refreshGames(){
+      const list = await request('/api/games');
+      const div = document.getElementById('gamesList');
+      div.innerHTML = '';
+      list.forEach(g => {
+        const el = document.createElement('div');
+        el.innerHTML = `<strong>Game ${g.id}</strong> - ${g.status} - p1:${g.players.p1||'-'} p2:${g.players.p2||'-'}
+          ${g.status==='waiting' && me ? `<button data-id="${g.id}" class="joinBtn">Join</button>` : ''}`;
+        div.appendChild(el);
+      });
+      document.querySelectorAll('.joinBtn').forEach(b => b.onclick = async (e) => {
+        const id = e.target.dataset.id;
+        const r = await request(`/api/games/${id}/join`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: me.userId, username: me.username })});
+        if (r.game) window.location = `/game.html?gameId=${id}&userId=${me.userId}`;
+        else alert(JSON.stringify(r));
+      });
+    }
+    document.getElementById('btnRefresh').onclick = refreshGames;
+    refreshGames();
+  </script>
+</body>
+</html>
