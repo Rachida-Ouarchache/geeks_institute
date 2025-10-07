@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Chat App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="entry" class="center-card">
+    <h1>Socket Chat</h1>
+    <input id="username" placeholder="Pick a username" maxlength="24" />
+    <input id="room" placeholder="Room name (e.g. general)" maxlength="32" />
+    <div class="row">
+      <button id="joinBtn" disabled>Join Room</button>
+    </div>
+    <p class="muted">Choose a username and room to begin.</p>
+  </div>
+
+  <div id="chat" class="hidden">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h3 id="roomTitle">Room</h3>
+        <button id="leaveBtn" class="small">Leave</button>
+      </div>
+      <div>
+        <h4>Active Users</h4>
+        <ul id="usersList" class="users"></ul>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="messages" class="messages"></div>
+
+      <form id="msgForm" class="msg-form">
+        <input id="msgInput" autocomplete="off" placeholder="Type a message" />
+        <button id="sendBtn">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <audio id="notifSound" src="data:audio/mp3;base64,//uQZ..."></audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
