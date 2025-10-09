@@ -1,0 +1,16 @@
+/* exercice 1 */
+ .App {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #61dafb;
+}
+
+p {
+  font-size: 18px;
+  color: #333;
+}
+
