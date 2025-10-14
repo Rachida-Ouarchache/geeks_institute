@@ -1,0 +1,38 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #e74c3c;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+section {
+  background-color: white;
+}
+
+#contact {
+  background-color: #f8f9fa;
+  padding-bottom: 60px;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #cf3a2c;
+}
+
+hr {
+  width: 60%;
+  margin: 0 auto;
+  opacity: 0.2;
+}
+
